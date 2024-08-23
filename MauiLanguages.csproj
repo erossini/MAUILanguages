@@ -1,0 +1,615 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net8.0-android;net8.0-ios;net8.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net8.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net8.0-tizen</TargetFrameworks> -->
+
+		<!-- Note for MacCatalyst:
+		The default runtime is maccatalyst-x64, except in Release config, in which case the default is maccatalyst-x64;maccatalyst-arm64.
+		When specifying both architectures, use the plural <RuntimeIdentifiers> instead of the singular <RuntimeIdentifier>.
+		The Mac App Store will NOT accept apps with ONLY maccatalyst-arm64 indicated;
+		either BOTH runtimes must be indicated or ONLY macatalyst-x64. -->
+		<!-- For example: <RuntimeIdentifiers>maccatalyst-x64;maccatalyst-arm64</RuntimeIdentifiers> -->
+
+		<OutputType>Exe</OutputType>
+		<RootNamespace>MauiLanguages</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>MauiLanguages</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.mauilanguages</ApplicationId>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.png" Resize="True" BaseSize="300,185" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Resources\Images\Flags\ad.svg" />
+	  <None Remove="Resources\Images\Flags\ae.svg" />
+	  <None Remove="Resources\Images\Flags\af.svg" />
+	  <None Remove="Resources\Images\Flags\ag.svg" />
+	  <None Remove="Resources\Images\Flags\ai.svg" />
+	  <None Remove="Resources\Images\Flags\al.svg" />
+	  <None Remove="Resources\Images\Flags\am.svg" />
+	  <None Remove="Resources\Images\Flags\ao.svg" />
+	  <None Remove="Resources\Images\Flags\aq.svg" />
+	  <None Remove="Resources\Images\Flags\ar.svg" />
+	  <None Remove="Resources\Images\Flags\arab.svg" />
+	  <None Remove="Resources\Images\Flags\as.svg" />
+	  <None Remove="Resources\Images\Flags\at.svg" />
+	  <None Remove="Resources\Images\Flags\au.svg" />
+	  <None Remove="Resources\Images\Flags\aw.svg" />
+	  <None Remove="Resources\Images\Flags\ax.svg" />
+	  <None Remove="Resources\Images\Flags\az.svg" />
+	  <None Remove="Resources\Images\Flags\ba.svg" />
+	  <None Remove="Resources\Images\Flags\bb.svg" />
+	  <None Remove="Resources\Images\Flags\bd.svg" />
+	  <None Remove="Resources\Images\Flags\be.svg" />
+	  <None Remove="Resources\Images\Flags\bf.svg" />
+	  <None Remove="Resources\Images\Flags\bg.svg" />
+	  <None Remove="Resources\Images\Flags\bh.svg" />
+	  <None Remove="Resources\Images\Flags\bi.svg" />
+	  <None Remove="Resources\Images\Flags\bj.svg" />
+	  <None Remove="Resources\Images\Flags\bl.svg" />
+	  <None Remove="Resources\Images\Flags\bm.svg" />
+	  <None Remove="Resources\Images\Flags\bn.svg" />
+	  <None Remove="Resources\Images\Flags\bo.svg" />
+	  <None Remove="Resources\Images\Flags\bq.svg" />
+	  <None Remove="Resources\Images\Flags\br.svg" />
+	  <None Remove="Resources\Images\Flags\bs.svg" />
+	  <None Remove="Resources\Images\Flags\bt.svg" />
+	  <None Remove="Resources\Images\Flags\bv.svg" />
+	  <None Remove="Resources\Images\Flags\bw.svg" />
+	  <None Remove="Resources\Images\Flags\by.svg" />
+	  <None Remove="Resources\Images\Flags\bz.svg" />
+	  <None Remove="Resources\Images\Flags\ca.svg" />
+	  <None Remove="Resources\Images\Flags\cc.svg" />
+	  <None Remove="Resources\Images\Flags\cd.svg" />
+	  <None Remove="Resources\Images\Flags\cefta.svg" />
+	  <None Remove="Resources\Images\Flags\cf.svg" />
+	  <None Remove="Resources\Images\Flags\cg.svg" />
+	  <None Remove="Resources\Images\Flags\ch.svg" />
+	  <None Remove="Resources\Images\Flags\ci.svg" />
+	  <None Remove="Resources\Images\Flags\ck.svg" />
+	  <None Remove="Resources\Images\Flags\cl.svg" />
+	  <None Remove="Resources\Images\Flags\cm.svg" />
+	  <None Remove="Resources\Images\Flags\cn.svg" />
+	  <None Remove="Resources\Images\Flags\co.svg" />
+	  <None Remove="Resources\Images\Flags\cp.svg" />
+	  <None Remove="Resources\Images\Flags\cr.svg" />
+	  <None Remove="Resources\Images\Flags\cu.svg" />
+	  <None Remove="Resources\Images\Flags\cv.svg" />
+	  <None Remove="Resources\Images\Flags\cw.svg" />
+	  <None Remove="Resources\Images\Flags\cx.svg" />
+	  <None Remove="Resources\Images\Flags\cy.svg" />
+	  <None Remove="Resources\Images\Flags\cz.svg" />
+	  <None Remove="Resources\Images\Flags\de.svg" />
+	  <None Remove="Resources\Images\Flags\dg.svg" />
+	  <None Remove="Resources\Images\Flags\dj.svg" />
+	  <None Remove="Resources\Images\Flags\dk.svg" />
+	  <None Remove="Resources\Images\Flags\dm.svg" />
+	  <None Remove="Resources\Images\Flags\do.svg" />
+	  <None Remove="Resources\Images\Flags\dz.svg" />
+	  <None Remove="Resources\Images\Flags\eac.svg" />
+	  <None Remove="Resources\Images\Flags\ec.svg" />
+	  <None Remove="Resources\Images\Flags\ee.svg" />
+	  <None Remove="Resources\Images\Flags\eg.svg" />
+	  <None Remove="Resources\Images\Flags\eh.svg" />
+	  <None Remove="Resources\Images\Flags\er.svg" />
+	  <None Remove="Resources\Images\Flags\es.svg" />
+	  <None Remove="Resources\Images\Flags\es_ct.svg" />
+	  <None Remove="Resources\Images\Flags\es_ga.svg" />
+	  <None Remove="Resources\Images\Flags\es_pv.svg" />
+	  <None Remove="Resources\Images\Flags\et.svg" />
+	  <None Remove="Resources\Images\Flags\eu.svg" />
+	  <None Remove="Resources\Images\Flags\fi.svg" />
+	  <None Remove="Resources\Images\Flags\fj.svg" />
+	  <None Remove="Resources\Images\Flags\fk.svg" />
+	  <None Remove="Resources\Images\Flags\fm.svg" />
+	  <None Remove="Resources\Images\Flags\fo.svg" />
+	  <None Remove="Resources\Images\Flags\fr.svg" />
+	  <None Remove="Resources\Images\Flags\ga.svg" />
+	  <None Remove="Resources\Images\Flags\gb.svg" />
+	  <None Remove="Resources\Images\Flags\gb_eng.svg" />
+	  <None Remove="Resources\Images\Flags\gb_nir.svg" />
+	  <None Remove="Resources\Images\Flags\gb_sct.svg" />
+	  <None Remove="Resources\Images\Flags\gb_wls.svg" />
+	  <None Remove="Resources\Images\Flags\gd.svg" />
+	  <None Remove="Resources\Images\Flags\ge.svg" />
+	  <None Remove="Resources\Images\Flags\gf.svg" />
+	  <None Remove="Resources\Images\Flags\gg.svg" />
+	  <None Remove="Resources\Images\Flags\gh.svg" />
+	  <None Remove="Resources\Images\Flags\gi.svg" />
+	  <None Remove="Resources\Images\Flags\gl.svg" />
+	  <None Remove="Resources\Images\Flags\gm.svg" />
+	  <None Remove="Resources\Images\Flags\gn.svg" />
+	  <None Remove="Resources\Images\Flags\gp.svg" />
+	  <None Remove="Resources\Images\Flags\gq.svg" />
+	  <None Remove="Resources\Images\Flags\gr.svg" />
+	  <None Remove="Resources\Images\Flags\gs.svg" />
+	  <None Remove="Resources\Images\Flags\gt.svg" />
+	  <None Remove="Resources\Images\Flags\gu.svg" />
+	  <None Remove="Resources\Images\Flags\gw.svg" />
+	  <None Remove="Resources\Images\Flags\gy.svg" />
+	  <None Remove="Resources\Images\Flags\hk.svg" />
+	  <None Remove="Resources\Images\Flags\hm.svg" />
+	  <None Remove="Resources\Images\Flags\hn.svg" />
+	  <None Remove="Resources\Images\Flags\hr.svg" />
+	  <None Remove="Resources\Images\Flags\ht.svg" />
+	  <None Remove="Resources\Images\Flags\hu.svg" />
+	  <None Remove="Resources\Images\Flags\ic.svg" />
+	  <None Remove="Resources\Images\Flags\id.svg" />
+	  <None Remove="Resources\Images\Flags\ie.svg" />
+	  <None Remove="Resources\Images\Flags\il.svg" />
+	  <None Remove="Resources\Images\Flags\im.svg" />
+	  <None Remove="Resources\Images\Flags\in.svg" />
+	  <None Remove="Resources\Images\Flags\io.svg" />
+	  <None Remove="Resources\Images\Flags\iq.svg" />
+	  <None Remove="Resources\Images\Flags\ir.svg" />
+	  <None Remove="Resources\Images\Flags\is.svg" />
+	  <None Remove="Resources\Images\Flags\it.svg" />
+	  <None Remove="Resources\Images\Flags\je.svg" />
+	  <None Remove="Resources\Images\Flags\jm.svg" />
+	  <None Remove="Resources\Images\Flags\jo.svg" />
+	  <None Remove="Resources\Images\Flags\jp.svg" />
+	  <None Remove="Resources\Images\Flags\ke.svg" />
+	  <None Remove="Resources\Images\Flags\kg.svg" />
+	  <None Remove="Resources\Images\Flags\kh.svg" />
+	  <None Remove="Resources\Images\Flags\ki.svg" />
+	  <None Remove="Resources\Images\Flags\km.svg" />
+	  <None Remove="Resources\Images\Flags\kn.svg" />
+	  <None Remove="Resources\Images\Flags\kp.svg" />
+	  <None Remove="Resources\Images\Flags\kr.svg" />
+	  <None Remove="Resources\Images\Flags\kw.svg" />
+	  <None Remove="Resources\Images\Flags\ky.svg" />
+	  <None Remove="Resources\Images\Flags\kz.svg" />
+	  <None Remove="Resources\Images\Flags\la.svg" />
+	  <None Remove="Resources\Images\Flags\lb.svg" />
+	  <None Remove="Resources\Images\Flags\lc.svg" />
+	  <None Remove="Resources\Images\Flags\li.svg" />
+	  <None Remove="Resources\Images\Flags\lk.svg" />
+	  <None Remove="Resources\Images\Flags\lr.svg" />
+	  <None Remove="Resources\Images\Flags\ls.svg" />
+	  <None Remove="Resources\Images\Flags\lt.svg" />
+	  <None Remove="Resources\Images\Flags\lu.svg" />
+	  <None Remove="Resources\Images\Flags\lv.svg" />
+	  <None Remove="Resources\Images\Flags\ly.svg" />
+	  <None Remove="Resources\Images\Flags\ma.svg" />
+	  <None Remove="Resources\Images\Flags\mc.svg" />
+	  <None Remove="Resources\Images\Flags\md.svg" />
+	  <None Remove="Resources\Images\Flags\me.svg" />
+	  <None Remove="Resources\Images\Flags\mf.svg" />
+	  <None Remove="Resources\Images\Flags\mg.svg" />
+	  <None Remove="Resources\Images\Flags\mh.svg" />
+	  <None Remove="Resources\Images\Flags\mk.svg" />
+	  <None Remove="Resources\Images\Flags\ml.svg" />
+	  <None Remove="Resources\Images\Flags\mm.svg" />
+	  <None Remove="Resources\Images\Flags\mn.svg" />
+	  <None Remove="Resources\Images\Flags\mo.svg" />
+	  <None Remove="Resources\Images\Flags\mp.svg" />
+	  <None Remove="Resources\Images\Flags\mq.svg" />
+	  <None Remove="Resources\Images\Flags\mr.svg" />
+	  <None Remove="Resources\Images\Flags\ms.svg" />
+	  <None Remove="Resources\Images\Flags\mt.svg" />
+	  <None Remove="Resources\Images\Flags\mu.svg" />
+	  <None Remove="Resources\Images\Flags\mv.svg" />
+	  <None Remove="Resources\Images\Flags\mw.svg" />
+	  <None Remove="Resources\Images\Flags\mx.svg" />
+	  <None Remove="Resources\Images\Flags\my.svg" />
+	  <None Remove="Resources\Images\Flags\mz.svg" />
+	  <None Remove="Resources\Images\Flags\na.svg" />
+	  <None Remove="Resources\Images\Flags\nc.svg" />
+	  <None Remove="Resources\Images\Flags\ne.svg" />
+	  <None Remove="Resources\Images\Flags\nf.svg" />
+	  <None Remove="Resources\Images\Flags\ng.svg" />
+	  <None Remove="Resources\Images\Flags\ni.svg" />
+	  <None Remove="Resources\Images\Flags\nl.svg" />
+	  <None Remove="Resources\Images\Flags\no.svg" />
+	  <None Remove="Resources\Images\Flags\np.svg" />
+	  <None Remove="Resources\Images\Flags\nr.svg" />
+	  <None Remove="Resources\Images\Flags\nu.svg" />
+	  <None Remove="Resources\Images\Flags\nz.svg" />
+	  <None Remove="Resources\Images\Flags\om.svg" />
+	  <None Remove="Resources\Images\Flags\pa.svg" />
+	  <None Remove="Resources\Images\Flags\pc.svg" />
+	  <None Remove="Resources\Images\Flags\pe.svg" />
+	  <None Remove="Resources\Images\Flags\pf.svg" />
+	  <None Remove="Resources\Images\Flags\pg.svg" />
+	  <None Remove="Resources\Images\Flags\ph.svg" />
+	  <None Remove="Resources\Images\Flags\pk.svg" />
+	  <None Remove="Resources\Images\Flags\pl.svg" />
+	  <None Remove="Resources\Images\Flags\pm.svg" />
+	  <None Remove="Resources\Images\Flags\pn.svg" />
+	  <None Remove="Resources\Images\Flags\pr.svg" />
+	  <None Remove="Resources\Images\Flags\ps.svg" />
+	  <None Remove="Resources\Images\Flags\pt.svg" />
+	  <None Remove="Resources\Images\Flags\pw.svg" />
+	  <None Remove="Resources\Images\Flags\py.svg" />
+	  <None Remove="Resources\Images\Flags\qa.svg" />
+	  <None Remove="Resources\Images\Flags\re.svg" />
+	  <None Remove="Resources\Images\Flags\ro.svg" />
+	  <None Remove="Resources\Images\Flags\rs.svg" />
+	  <None Remove="Resources\Images\Flags\ru.svg" />
+	  <None Remove="Resources\Images\Flags\rw.svg" />
+	  <None Remove="Resources\Images\Flags\sa.svg" />
+	  <None Remove="Resources\Images\Flags\sb.svg" />
+	  <None Remove="Resources\Images\Flags\sc.svg" />
+	  <None Remove="Resources\Images\Flags\sd.svg" />
+	  <None Remove="Resources\Images\Flags\se.svg" />
+	  <None Remove="Resources\Images\Flags\sg.svg" />
+	  <None Remove="Resources\Images\Flags\sh.svg" />
+	  <None Remove="Resources\Images\Flags\sh_ac.svg" />
+	  <None Remove="Resources\Images\Flags\sh_hl.svg" />
+	  <None Remove="Resources\Images\Flags\sh_ta.svg" />
+	  <None Remove="Resources\Images\Flags\si.svg" />
+	  <None Remove="Resources\Images\Flags\sj.svg" />
+	  <None Remove="Resources\Images\Flags\sk.svg" />
+	  <None Remove="Resources\Images\Flags\sl.svg" />
+	  <None Remove="Resources\Images\Flags\sm.svg" />
+	  <None Remove="Resources\Images\Flags\sn.svg" />
+	  <None Remove="Resources\Images\Flags\so.svg" />
+	  <None Remove="Resources\Images\Flags\sr.svg" />
+	  <None Remove="Resources\Images\Flags\ss.svg" />
+	  <None Remove="Resources\Images\Flags\st.svg" />
+	  <None Remove="Resources\Images\Flags\sv.svg" />
+	  <None Remove="Resources\Images\Flags\sx.svg" />
+	  <None Remove="Resources\Images\Flags\sy.svg" />
+	  <None Remove="Resources\Images\Flags\sz.svg" />
+	  <None Remove="Resources\Images\Flags\tc.svg" />
+	  <None Remove="Resources\Images\Flags\td.svg" />
+	  <None Remove="Resources\Images\Flags\tf.svg" />
+	  <None Remove="Resources\Images\Flags\tg.svg" />
+	  <None Remove="Resources\Images\Flags\th.svg" />
+	  <None Remove="Resources\Images\Flags\tj.svg" />
+	  <None Remove="Resources\Images\Flags\tk.svg" />
+	  <None Remove="Resources\Images\Flags\tl.svg" />
+	  <None Remove="Resources\Images\Flags\tm.svg" />
+	  <None Remove="Resources\Images\Flags\tn.svg" />
+	  <None Remove="Resources\Images\Flags\to.svg" />
+	  <None Remove="Resources\Images\Flags\tr.svg" />
+	  <None Remove="Resources\Images\Flags\tt.svg" />
+	  <None Remove="Resources\Images\Flags\tv.svg" />
+	  <None Remove="Resources\Images\Flags\tw.svg" />
+	  <None Remove="Resources\Images\Flags\tz.svg" />
+	  <None Remove="Resources\Images\Flags\ua.svg" />
+	  <None Remove="Resources\Images\Flags\ug.svg" />
+	  <None Remove="Resources\Images\Flags\um.svg" />
+	  <None Remove="Resources\Images\Flags\un.svg" />
+	  <None Remove="Resources\Images\Flags\us.svg" />
+	  <None Remove="Resources\Images\Flags\uy.svg" />
+	  <None Remove="Resources\Images\Flags\uz.svg" />
+	  <None Remove="Resources\Images\Flags\va.svg" />
+	  <None Remove="Resources\Images\Flags\vc.svg" />
+	  <None Remove="Resources\Images\Flags\ve.svg" />
+	  <None Remove="Resources\Images\Flags\vg.svg" />
+	  <None Remove="Resources\Images\Flags\vi.svg" />
+	  <None Remove="Resources\Images\Flags\vn.svg" />
+	  <None Remove="Resources\Images\Flags\vu.svg" />
+	  <None Remove="Resources\Images\Flags\wf.svg" />
+	  <None Remove="Resources\Images\Flags\ws.svg" />
+	  <None Remove="Resources\Images\Flags\xk.svg" />
+	  <None Remove="Resources\Images\Flags\xx.svg" />
+	  <None Remove="Resources\Images\Flags\ye.svg" />
+	  <None Remove="Resources\Images\Flags\yt.svg" />
+	  <None Remove="Resources\Images\Flags\za.svg" />
+	  <None Remove="Resources\Images\Flags\zm.svg" />
+	  <None Remove="Resources\Images\Flags\zw.svg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="CommunityToolkit.Maui" Version="9.0.3" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="8.0.80" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="8.0.80" />
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="8.0.0" />
+		<PackageReference Include="PSC.CSharp.Library.CountryData" Version="8.0.9" />
+		<PackageReference Include="Svg.Skia" Version="2.0.0" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Flags\ad.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ae.svg" />
+	  <MauiImage Include="Resources\Images\Flags\af.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ag.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ai.svg" />
+	  <MauiImage Include="Resources\Images\Flags\al.svg" />
+	  <MauiImage Include="Resources\Images\Flags\am.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ao.svg" />
+	  <MauiImage Include="Resources\Images\Flags\aq.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ar.svg" />
+	  <MauiImage Include="Resources\Images\Flags\arab.svg" />
+	  <MauiImage Include="Resources\Images\Flags\as.svg" />
+	  <MauiImage Include="Resources\Images\Flags\at.svg" />
+	  <MauiImage Include="Resources\Images\Flags\au.svg" />
+	  <MauiImage Include="Resources\Images\Flags\aw.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ax.svg" />
+	  <MauiImage Include="Resources\Images\Flags\az.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ba.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bb.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bd.svg" />
+	  <MauiImage Include="Resources\Images\Flags\be.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bf.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bh.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bi.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bj.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bl.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bn.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bo.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bq.svg" />
+	  <MauiImage Include="Resources\Images\Flags\br.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bs.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bt.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bv.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bw.svg" />
+	  <MauiImage Include="Resources\Images\Flags\by.svg" />
+	  <MauiImage Include="Resources\Images\Flags\bz.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ca.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cc.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cd.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cefta.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cf.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ch.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ci.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ck.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cl.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cn.svg" />
+	  <MauiImage Include="Resources\Images\Flags\co.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cp.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cu.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cv.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cw.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cx.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cy.svg" />
+	  <MauiImage Include="Resources\Images\Flags\cz.svg" />
+	  <MauiImage Include="Resources\Images\Flags\de.svg" />
+	  <MauiImage Include="Resources\Images\Flags\dg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\dj.svg" />
+	  <MauiImage Include="Resources\Images\Flags\dk.svg" />
+	  <MauiImage Include="Resources\Images\Flags\dm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\do.svg" />
+	  <MauiImage Include="Resources\Images\Flags\dz.svg" />
+	  <MauiImage Include="Resources\Images\Flags\eac.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ec.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ee.svg" />
+	  <MauiImage Include="Resources\Images\Flags\eg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\eh.svg" />
+	  <MauiImage Include="Resources\Images\Flags\er.svg" />
+	  <MauiImage Include="Resources\Images\Flags\es_ct.svg" />
+	  <MauiImage Include="Resources\Images\Flags\es_ga.svg" />
+	  <MauiImage Include="Resources\Images\Flags\es_pv.svg" />
+	  <MauiImage Include="Resources\Images\Flags\es.svg" />
+	  <MauiImage Include="Resources\Images\Flags\et.svg" />
+	  <MauiImage Include="Resources\Images\Flags\eu.svg" />
+	  <MauiImage Include="Resources\Images\Flags\fi.svg" />
+	  <MauiImage Include="Resources\Images\Flags\fj.svg" />
+	  <MauiImage Include="Resources\Images\Flags\fk.svg" />
+	  <MauiImage Include="Resources\Images\Flags\fm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\fo.svg" />
+	  <MauiImage Include="Resources\Images\Flags\fr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ga.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gb_eng.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gb_nir.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gb_sct.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gb_wls.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gb.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gd.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ge.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gf.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gh.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gi.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gl.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gn.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gp.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gq.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gs.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gt.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gu.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gw.svg" />
+	  <MauiImage Include="Resources\Images\Flags\gy.svg" />
+	  <MauiImage Include="Resources\Images\Flags\hk.svg" />
+	  <MauiImage Include="Resources\Images\Flags\hm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\hn.svg" />
+	  <MauiImage Include="Resources\Images\Flags\hr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ht.svg" />
+	  <MauiImage Include="Resources\Images\Flags\hu.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ic.svg" />
+	  <MauiImage Include="Resources\Images\Flags\id.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ie.svg" />
+	  <MauiImage Include="Resources\Images\Flags\il.svg" />
+	  <MauiImage Include="Resources\Images\Flags\im.svg" />
+	  <MauiImage Include="Resources\Images\Flags\in.svg" />
+	  <MauiImage Include="Resources\Images\Flags\io.svg" />
+	  <MauiImage Include="Resources\Images\Flags\iq.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ir.svg" />
+	  <MauiImage Include="Resources\Images\Flags\is.svg" />
+	  <MauiImage Include="Resources\Images\Flags\it.svg" />
+	  <MauiImage Include="Resources\Images\Flags\je.svg" />
+	  <MauiImage Include="Resources\Images\Flags\jm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\jo.svg" />
+	  <MauiImage Include="Resources\Images\Flags\jp.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ke.svg" />
+	  <MauiImage Include="Resources\Images\Flags\kg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\kh.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ki.svg" />
+	  <MauiImage Include="Resources\Images\Flags\km.svg" />
+	  <MauiImage Include="Resources\Images\Flags\kn.svg" />
+	  <MauiImage Include="Resources\Images\Flags\kp.svg" />
+	  <MauiImage Include="Resources\Images\Flags\kr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\kw.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ky.svg" />
+	  <MauiImage Include="Resources\Images\Flags\kz.svg" />
+	  <MauiImage Include="Resources\Images\Flags\la.svg" />
+	  <MauiImage Include="Resources\Images\Flags\lb.svg" />
+	  <MauiImage Include="Resources\Images\Flags\lc.svg" />
+	  <MauiImage Include="Resources\Images\Flags\li.svg" />
+	  <MauiImage Include="Resources\Images\Flags\lk.svg" />
+	  <MauiImage Include="Resources\Images\Flags\lr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ls.svg" />
+	  <MauiImage Include="Resources\Images\Flags\lt.svg" />
+	  <MauiImage Include="Resources\Images\Flags\lu.svg" />
+	  <MauiImage Include="Resources\Images\Flags\lv.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ly.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ma.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mc.svg" />
+	  <MauiImage Include="Resources\Images\Flags\md.svg" />
+	  <MauiImage Include="Resources\Images\Flags\me.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mf.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mh.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mk.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ml.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mn.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mo.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mp.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mq.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ms.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mt.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mu.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mv.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mw.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mx.svg" />
+	  <MauiImage Include="Resources\Images\Flags\my.svg" />
+	  <MauiImage Include="Resources\Images\Flags\mz.svg" />
+	  <MauiImage Include="Resources\Images\Flags\na.svg" />
+	  <MauiImage Include="Resources\Images\Flags\nc.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ne.svg" />
+	  <MauiImage Include="Resources\Images\Flags\nf.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ng.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ni.svg" />
+	  <MauiImage Include="Resources\Images\Flags\nl.svg" />
+	  <MauiImage Include="Resources\Images\Flags\no.svg" />
+	  <MauiImage Include="Resources\Images\Flags\np.svg" />
+	  <MauiImage Include="Resources\Images\Flags\nr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\nu.svg" />
+	  <MauiImage Include="Resources\Images\Flags\nz.svg" />
+	  <MauiImage Include="Resources\Images\Flags\om.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pa.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pc.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pe.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pf.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ph.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pk.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pl.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pn.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ps.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pt.svg" />
+	  <MauiImage Include="Resources\Images\Flags\pw.svg" />
+	  <MauiImage Include="Resources\Images\Flags\py.svg" />
+	  <MauiImage Include="Resources\Images\Flags\qa.svg" />
+	  <MauiImage Include="Resources\Images\Flags\re.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ro.svg" />
+	  <MauiImage Include="Resources\Images\Flags\rs.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ru.svg" />
+	  <MauiImage Include="Resources\Images\Flags\rw.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sa.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sb.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sc.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sd.svg" />
+	  <MauiImage Include="Resources\Images\Flags\se.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sh_ac.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sh_hl.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sh_ta.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sh.svg" />
+	  <MauiImage Include="Resources\Images\Flags\si.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sj.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sk.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sl.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sn.svg" />
+	  <MauiImage Include="Resources\Images\Flags\so.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ss.svg" />
+	  <MauiImage Include="Resources\Images\Flags\st.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sv.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sx.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sy.svg" />
+	  <MauiImage Include="Resources\Images\Flags\sz.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tc.svg" />
+	  <MauiImage Include="Resources\Images\Flags\td.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tf.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\th.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tj.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tk.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tl.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tn.svg" />
+	  <MauiImage Include="Resources\Images\Flags\to.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tr.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tt.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tv.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tw.svg" />
+	  <MauiImage Include="Resources\Images\Flags\tz.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ua.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ug.svg" />
+	  <MauiImage Include="Resources\Images\Flags\um.svg" />
+	  <MauiImage Include="Resources\Images\Flags\un.svg" />
+	  <MauiImage Include="Resources\Images\Flags\us.svg" />
+	  <MauiImage Include="Resources\Images\Flags\uy.svg" />
+	  <MauiImage Include="Resources\Images\Flags\uz.svg" />
+	  <MauiImage Include="Resources\Images\Flags\va.svg" />
+	  <MauiImage Include="Resources\Images\Flags\vc.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ve.svg" />
+	  <MauiImage Include="Resources\Images\Flags\vg.svg" />
+	  <MauiImage Include="Resources\Images\Flags\vi.svg" />
+	  <MauiImage Include="Resources\Images\Flags\vn.svg" />
+	  <MauiImage Include="Resources\Images\Flags\vu.svg" />
+	  <MauiImage Include="Resources\Images\Flags\wf.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ws.svg" />
+	  <MauiImage Include="Resources\Images\Flags\xk.svg" />
+	  <MauiImage Include="Resources\Images\Flags\xx.svg" />
+	  <MauiImage Include="Resources\Images\Flags\ye.svg" />
+	  <MauiImage Include="Resources\Images\Flags\yt.svg" />
+	  <MauiImage Include="Resources\Images\Flags\za.svg" />
+	  <MauiImage Include="Resources\Images\Flags\zm.svg" />
+	  <MauiImage Include="Resources\Images\Flags\zw.svg" />
+	</ItemGroup>
+
+</Project>

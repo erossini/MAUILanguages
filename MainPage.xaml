@@ -1,0 +1,124 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+	x:Class="MauiLanguages.MainPage"
+	xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+	xmlns:cmp="clr-namespace:MauiLanguages"
+	xmlns:md="clr-namespace:MauiLanguages.Models">
+
+	<StackLayout>
+		<SearchBar x:Name="searchBar"
+                   Placeholder="Search" Margin="0,0,0,5"
+                   TextChanged="searchBar_TextChanged" />
+		<ListView
+			x:Name="listLanguages"
+			Grid.Row="1"
+			Margin="10,0,10,0"
+			HasUnevenRows="True"
+			HorizontalOptions="FillAndExpand"
+			IsGroupingEnabled="True"
+			ItemsSource="{Binding FilteredCulturesGroups}"
+			SelectionMode="Single"
+			VerticalOptions="FillAndExpand">
+			<ListView.Triggers>
+				<MultiTrigger TargetType="ListView">
+					<MultiTrigger.Conditions>
+						<BindingCondition Binding="{Binding IsEmpty}" Value="True" />
+					</MultiTrigger.Conditions>
+					<Setter Property="IsVisible" Value="False" />
+				</MultiTrigger>
+			</ListView.Triggers>
+			<ListView.GroupHeaderTemplate>
+				<DataTemplate x:DataType="md:LanguageModelGroup">
+					<ViewCell>
+						<HorizontalStackLayout
+							Padding="10,5"
+							BackgroundColor="Gray"
+							HorizontalOptions="FillAndExpand"
+							VerticalOptions="FillAndExpand">
+							<Image
+								Margin="0,0,10,0"
+								HeightRequest="30"
+								Source="{Binding Flag}"
+								WidthRequest="30" />
+							<Label
+								FontAttributes="Bold"
+								Text="{Binding Name}"
+								VerticalTextAlignment="Center" />
+						</HorizontalStackLayout>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.GroupHeaderTemplate>
+			<ListView.ItemTemplate>
+				<DataTemplate x:DataType="md:LanguageModel">
+					<ViewCell>
+						<Grid
+							Margin="0"
+							ColumnDefinitions="Auto,*"
+							ColumnSpacing="10"
+							HorizontalOptions="FillAndExpand"
+							VerticalOptions="FillAndExpand">
+							<HorizontalStackLayout>
+								<Image
+									Margin="0,0,10,0"
+									HeightRequest="30"
+									Source="{Binding Flag}"
+									WidthRequest="30" />
+								<Label
+									HorizontalOptions="StartAndExpand"
+									Text="{Binding LanguageName}"
+									TextColor="Black"
+									VerticalTextAlignment="Center" />
+							</HorizontalStackLayout>
+							<Label
+								Grid.Column="1"
+								HorizontalOptions="EndAndExpand"
+								Text="{Binding Abbreviation}"
+								TextColor="Black"
+								VerticalTextAlignment="Center" />
+						</Grid>
+					</ViewCell>
+				</DataTemplate>
+			</ListView.ItemTemplate>
+		</ListView>
+
+		<!--<CollectionView
+		HorizontalOptions="FillAndExpand"
+		IsGrouped="True"
+		ItemsSource="{Binding LanguageModels}"
+		VerticalOptions="FillAndExpand">
+		<CollectionView.GroupHeaderTemplate>
+			<DataTemplate>
+				<Label
+					BackgroundColor="Gray"
+					FontAttributes="Bold"
+					FontSize="18"
+					HorizontalOptions="FillAndExpand"
+					Text="{Binding Name}"
+					VerticalOptions="FillAndExpand"
+					VerticalTextAlignment="Center" />
+			</DataTemplate>
+		</CollectionView.GroupHeaderTemplate>
+		<CollectionView.ItemTemplate>
+			<DataTemplate>
+				<Grid
+					Margin="5"
+					Padding="10"
+					ColumnDefinitions="*,Auto"
+					HorizontalOptions="FillAndExpand"
+					VerticalOptions="FillAndExpand">
+					<Label
+						HorizontalOptions="StartAndExpand"
+						Text="{Binding LanguageName}"
+						TextColor="Black" />
+					<Label
+						Grid.Column="1"
+						HorizontalOptions="EndAndExpand"
+						Text="{Binding Abbreviation}"
+						TextColor="Black" />
+				</Grid>
+			</DataTemplate>
+		</CollectionView.ItemTemplate>
+	</CollectionView>-->
+	</StackLayout>
+</ContentPage>
