@@ -613,4 +613,8 @@
 	  <MauiImage Include="Resources\Images\Flags\zw.svg" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Components\" />
+	</ItemGroup>
+
 </Project>
