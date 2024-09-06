@@ -6,10 +6,49 @@
 	xmlns:cmp="clr-namespace:MauiLanguages"
 	xmlns:md="clr-namespace:MauiLanguages.Models">
 
-	<StackLayout>
-		<SearchBar x:Name="searchBar"
-                   Placeholder="Search" Margin="0,0,0,5"
-                   TextChanged="searchBar_TextChanged" />
+	<StackLayout HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+		<VerticalStackLayout>
+			<Grid
+				Margin="10,0,10,0"
+				ColumnDefinitions="*,Auto"
+				HorizontalOptions="FillAndExpand"
+				VerticalOptions="FillAndExpand">
+				<SearchBar
+					x:Name="searchBar"
+					Margin="0,0,5,5"
+					Placeholder="Search"
+					TextChanged="searchBar_TextChanged"
+					VerticalOptions="FillAndExpand" />
+				<Picker
+					x:Name="pickerFilter"
+					Grid.Column="1"
+					ItemDisplayBinding="{Binding Name}"
+					ItemsSource="{Binding Filters}"
+					SelectedIndexChanged="pickerFilter_SelectedIndexChanged" />
+			</Grid>
+			<VerticalStackLayout
+				Margin="10,25,10,10"
+				HorizontalOptions="FillAndExpand"
+				IsVisible="{Binding IsEmpty}"
+				VerticalOptions="FillAndExpand">
+				<Image
+					HeightRequest="30"
+					HorizontalOptions="CenterAndExpand"
+					Source="nodata.png"
+					VerticalOptions="CenterAndExpand"
+					WidthRequest="30" />
+				<Label
+					HorizontalOptions="CenterAndExpand"
+					Text="No data for this selection"
+					VerticalOptions="FillAndExpand"
+					VerticalTextAlignment="End" />
+			</VerticalStackLayout>
+			<ActivityIndicator
+				HorizontalOptions="FillAndExpand"
+				IsVisible="{Binding IsLoading}"
+				VerticalOptions="FillAndExpand" />
+		</VerticalStackLayout>
+
 		<ListView
 			x:Name="listLanguages"
 			Grid.Row="1"
@@ -17,23 +56,16 @@
 			HasUnevenRows="True"
 			HorizontalOptions="FillAndExpand"
 			IsGroupingEnabled="True"
+			ItemSelected="listLanguages_ItemSelected"
 			ItemsSource="{Binding FilteredCulturesGroups}"
 			SelectionMode="Single"
 			VerticalOptions="FillAndExpand">
-			<ListView.Triggers>
-				<MultiTrigger TargetType="ListView">
-					<MultiTrigger.Conditions>
-						<BindingCondition Binding="{Binding IsEmpty}" Value="True" />
-					</MultiTrigger.Conditions>
-					<Setter Property="IsVisible" Value="False" />
-				</MultiTrigger>
-			</ListView.Triggers>
 			<ListView.GroupHeaderTemplate>
 				<DataTemplate x:DataType="md:LanguageModelGroup">
 					<ViewCell>
 						<HorizontalStackLayout
-							Padding="10,5"
-							BackgroundColor="Gray"
+							Padding="5,5"
+							BackgroundColor="{StaticResource Gray100}"
 							HorizontalOptions="FillAndExpand"
 							VerticalOptions="FillAndExpand">
 							<Image
@@ -53,12 +85,17 @@
 				<DataTemplate x:DataType="md:LanguageModel">
 					<ViewCell>
 						<Grid
-							Margin="0"
-							ColumnDefinitions="Auto,*"
+							ColumnDefinitions="20,Auto,*"
 							ColumnSpacing="10"
 							HorizontalOptions="FillAndExpand"
 							VerticalOptions="FillAndExpand">
-							<HorizontalStackLayout>
+							<Image
+								HeightRequest="20"
+								IsVisible="{Binding IsSupported}"
+								Source="star.png"
+								VerticalOptions="Center"
+								WidthRequest="20" />
+							<HorizontalStackLayout Grid.Column="1">
 								<Image
 									Margin="0,0,10,0"
 									HeightRequest="30"
@@ -71,7 +108,7 @@
 									VerticalTextAlignment="Center" />
 							</HorizontalStackLayout>
 							<Label
-								Grid.Column="1"
+								Grid.Column="2"
 								HorizontalOptions="EndAndExpand"
 								Text="{Binding Abbreviation}"
 								TextColor="Black"
@@ -81,44 +118,5 @@
 				</DataTemplate>
 			</ListView.ItemTemplate>
 		</ListView>
-
-		<!--<CollectionView
-		HorizontalOptions="FillAndExpand"
-		IsGrouped="True"
-		ItemsSource="{Binding LanguageModels}"
-		VerticalOptions="FillAndExpand">
-		<CollectionView.GroupHeaderTemplate>
-			<DataTemplate>
-				<Label
-					BackgroundColor="Gray"
-					FontAttributes="Bold"
-					FontSize="18"
-					HorizontalOptions="FillAndExpand"
-					Text="{Binding Name}"
-					VerticalOptions="FillAndExpand"
-					VerticalTextAlignment="Center" />
-			</DataTemplate>
-		</CollectionView.GroupHeaderTemplate>
-		<CollectionView.ItemTemplate>
-			<DataTemplate>
-				<Grid
-					Margin="5"
-					Padding="10"
-					ColumnDefinitions="*,Auto"
-					HorizontalOptions="FillAndExpand"
-					VerticalOptions="FillAndExpand">
-					<Label
-						HorizontalOptions="StartAndExpand"
-						Text="{Binding LanguageName}"
-						TextColor="Black" />
-					<Label
-						Grid.Column="1"
-						HorizontalOptions="EndAndExpand"
-						Text="{Binding Abbreviation}"
-						TextColor="Black" />
-				</Grid>
-			</DataTemplate>
-		</CollectionView.ItemTemplate>
-	</CollectionView>-->
 	</StackLayout>
 </ContentPage>

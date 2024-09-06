@@ -16,16 +16,32 @@ namespace MauiLanguages.ViewModels
 {
     public partial class MainPageViewModel : ObservableObject
     {
+        #region Observable Properties
+
         [ObservableProperty] private ObservableCollection<LanguageModelGroup>? availableCulturesGroups;
         [ObservableProperty] private ObservableCollection<LanguageModelGroup>? filteredCulturesGroups;
         [ObservableProperty] private ObservableCollection<LanguageModel>? availableCultures;
+        [ObservableProperty] private ObservableCollection<LanguageModel>? recentCultures;
+        [ObservableProperty] private ObservableCollection<LanguageModel>? supportedCultures;
         [ObservableProperty] private string? flagTest;
+        [ObservableProperty] private string? selectFilter;
 
-        private readonly CultureCountryOverrides? cultureCountryOverrides;
+        [ObservableProperty] private bool isEmpty;
+        [ObservableProperty] private bool isLoading;
+        [ObservableProperty] private bool showGroups;
+        [ObservableProperty] private bool showOnlySupported;
+
+        [ObservableProperty] private ObservableCollection<FilterModel>? filters;
+
+        #endregion
+
+        private readonly CultureCountryOverrides? CultureCountryOverrides;
         private const string DefaultOverrides = "en=en-US,zh=zh-CN,zh-CHT=zh-CN,zh-HANT=zh-CN,fy=fy,";
+        private string[] StarCultureList = { "en-GB", "de-DE", "fr-FR", "it-IT", "pt-PT", "es-ES" };
+        private string[] RecentCultureList = { };
 
         private static readonly string[] _existingFlags =
-{
+        {
             "ad", "ae", "af", "ag", "ai", "al", "am", "an", "ao", "ar", "as", "at", "au", "aw", "ax", "az", "ba", "bb", "bd", "be", "bf",
             "bg", "bh", "bi", "bj", "bm", "bn", "bo", "br", "bs", "bt", "bv", "bw", "by", "bz", "ca", "cc", "cd", "cf", "cg", "ch", "ci",
             "ck", "cl", "cm", "cn", "co", "cr", "cs", "cu", "cv", "cx", "cy", "cz", "de", "dj", "dk", "dm", "do", "dz", "ec", "ee", "eg",
@@ -42,9 +58,23 @@ namespace MauiLanguages.ViewModels
 
         public MainPageViewModel()
         {
-            cultureCountryOverrides = new CultureCountryOverrides();
+            IsEmpty = true;
+            isLoading = false;
+
+            Filters = new ObservableCollection<FilterModel>() { 
+                new FilterModel() { Name = "All languages", Value = "All" }, 
+                new FilterModel() { Name = "Supported", Value = "Supported" }, 
+                new FilterModel() { Name = "Recently used", Value = "Recent" } 
+            };
+            CultureCountryOverrides = new CultureCountryOverrides();
+            RecentCultures = new ObservableCollection<LanguageModel>();
+            SupportedCultures = new ObservableCollection<LanguageModel>();
+
             AvailableCulturesGroups = new ObservableCollection<LanguageModelGroup>(GetLanguages());
             FilteredCulturesGroups = AvailableCulturesGroups;
+
+            ShowGroups = true;
+            ShowOnlySupported = false;
         }
 
         public void FilterItems(string filter)
@@ -66,6 +96,7 @@ namespace MauiLanguages.ViewModels
             FlagTest = SVGFlags.GetFullSVGByCode("it");
 
             List<LanguageModel> rtn = new List<LanguageModel>();
+            List<LanguageModel> recents = new List<LanguageModel>();
 
             var _availableCultures = CultureInfo.GetCultures(CultureTypes.AllCultures)
                                     .Where(culture => !CultureInfo.InvariantCulture.Equals(culture))
@@ -79,8 +110,12 @@ namespace MauiLanguages.ViewModels
                     Abbreviation = culture.IetfLanguageTag,
                     CultureInfo = culture,
                     LanguageName = culture.DisplayName,
-                    Flag = $"{GetFlag(culture)}.png"
+                    Flag = $"{GetFlag(culture)}.png",
+                    IsSupported = StarCultureList.Contains(culture.IetfLanguageTag)
                 };
+
+                if(RecentCultureList.Contains(culture.IetfLanguageTag))
+                    recents.Add(item);
 
                 if (culture.Parent != null && !string.IsNullOrEmpty(culture.Parent.IetfLanguageTag))
                     item.Parent = new LanguageModel()
@@ -103,6 +138,9 @@ namespace MauiLanguages.ViewModels
             AvailableCultures = new ObservableCollection<LanguageModel>(rtn);
             List<LanguageModelGroup> groups = rtn.ToGroups();
 
+            RecentCultures = new ObservableCollection<LanguageModel>(recents);
+            SupportedCultures = new ObservableCollection<LanguageModel>(AvailableCultures.Where(c => c.IsSupported).ToList());
+
             return groups;
         }
 
@@ -115,7 +153,7 @@ namespace MauiLanguages.ViewModels
         {
             var cultureName = culture.Name;
 
-            var countryOverride = cultureCountryOverrides[culture];
+            var countryOverride = CultureCountryOverrides[culture];
             if (countryOverride != null)
             {
                 culture = countryOverride;
